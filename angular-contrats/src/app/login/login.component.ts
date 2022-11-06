@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Utilisateur} from "../models/utilisateur";
+import {UserService} from "../services/user.service";
+import {filter, Observable} from "rxjs";
+import * as buffer from "buffer";
 
 @Component({
   selector: 'app-login',
@@ -6,14 +10,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user = {
-    id : 1,
-    nom: '',
-    motDePasse: ''
+  nom : string = ""
+  motDePasse : string = ""
+  erreurPourMotDePasse : boolean = false
+  erreurPourNom : boolean = false
+  isLogin : boolean = false
+
+  constructor(private userService: UserService) {
+
   }
-  constructor() { }
 
   ngOnInit(): void {
   }
 
+  getUtilisateur(): void {
+    let utilisateurCourrant: Observable<Utilisateur> = this.userService.getUtilisateurParNom(this.nom);
+
+    utilisateurCourrant.subscribe(
+      user=>{
+        if(user.motDePasse != this.motDePasse){
+          console.log("mot de passe")
+          this.erreurPourMotDePasse = true
+          this.erreurPourNom = false
+          console.log(this.erreurPourMotDePasse)
+        }else{
+          this.isLogin = true
+          if (user.nom){
+            this.nom = user.nom
+          }
+          this.nom =""
+          this.motDePasse =""
+          this.erreurPourMotDePasse = false
+          this.erreurPourNom = false
+        }
+      },
+     error => {
+         if (error.status == 404){
+           this.erreurPourNom = true
+           this.erreurPourMotDePasse = false
+         }
+     });
+  }
 }

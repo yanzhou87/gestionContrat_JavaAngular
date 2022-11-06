@@ -18,13 +18,15 @@ public class ServiceUtilisateur {
         this.utilisateurRepository = utilisateurRepository;
     }
 
-    public Optional<UtilisateurDTO> getUtilisateurParNom(String nom) {
+    public UtilisateurDTO getUtilisateurParNom(String nom) throws Exception {
 
-        Utilisateur utilisateur = utilisateurRepository.findUtilisateurByNom(nom).get();
-
-        UtilisateurDTO utilisateurDTO = new UtilisateurDTO(utilisateur.getId(),utilisateur.getNom(),
-                utilisateur.getMotDePasse(),utilisateur.getCourriel());
-        return Optional.of(utilisateurDTO);
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findUtilisateurByNom(nom);
+        if (utilisateur.isEmpty()){
+            throw new Exception();
+        }
+        UtilisateurDTO utilisateurDTO = new UtilisateurDTO(utilisateur.get().getId(),utilisateur.get().getNom(),
+                utilisateur.get().getMotDePasse(),utilisateur.get().getCourriel());
+        return utilisateurDTO;
     }
 
     public UtilisateurDTO saveUtilisateur(UtilisateurDTO utilisateurDTO) {

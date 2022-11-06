@@ -1,11 +1,18 @@
-
-<div>
+<div class="text-center">
   <h1>Gestion les contrats</h1>
-  <form>
-    <label for="username">Utilisateur:</label><br>
-    <input type="text" id="username" name="username" [(ngModel)]="user.nom"><br>
-    <label for="motdepasse">Mot de passe:</label><br>
-    <input type="text" id="motdepasse" name="motdepasse" [(ngModel)]="user.motDePasse"><br><br>
-    <input type="submit" value="Submit"><a class="btn btn-link">Créer un utilisateur</a>
+  <form class="was-validated">
+    <div class="custom-control mb-3">
+      <label class="custom-control-label" for="customControlValidationNom" for="username">Utilisateur:</label><br>
+      <input class="custom-control-input" id="customControlValidationNom" required type="text" id="username" name="username" [(ngModel)]="nom"><br>
+      <div class="text-danger" *ngIf="erreurPourNom">Nom d'utiliateur n'existe pas</div>
+    </div>
+    <div class="was-validated mb-3">
+      <label class="custom-control-label" for="customControlValidationMotDePasse" for="motdepasse">Mot de passe:</label><br>
+      <input class="custom-control-input" id="customControlValidationMotDePasse" required type="text" id="motdepasse" name="motdepasse" [(ngModel)]="motDePasse"><br><br>
+      <div class="text-danger" *ngIf="erreurPourMotDePasse">Mot de passe invalide</div>
+    </div>
+
+    <input type="submit" value="Submit" (click)="getUtilisateur()"><a routerLink="/creerutilisateur" class="btn btn-link">Créer un utilisateur</a>
   </form>
+  <p class="text-success" *ngIf="isLogin">login</p>
 </div>

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -43,11 +44,12 @@ public class ContratController {
     }
     @GetMapping("/utilisateurs/{nom}")
     public ResponseEntity<UtilisateurDTO> getUtilisateurParNom(@PathVariable String nom) {
-        System.out.println("get utli par nom" + serviceUtilisateur.getUtilisateurParNom(nom).get());
-        return serviceUtilisateur.getUtilisateurParNom(nom)
-                .map(utilisateur -> ResponseEntity.status(HttpStatus.OK).body(utilisateur))
-                .orElse(ResponseEntity.status(HttpStatus.CONFLICT).build());
-        //return new ResponseEntity<>(serviceUtilisateur.getUtilisateurParNom(nom), HttpStatus.OK);
+        try{
+            UtilisateurDTO utilisateurDTO = serviceUtilisateur.getUtilisateurParNom(nom);
+            return ResponseEntity.ok(utilisateurDTO);
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/utilisateurs/contrats/{id}")
