@@ -9,12 +9,14 @@ import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import { CreerUtilisateurComponent } from './creer-utilisateur/creer-utilisateur.component';
 import {UserService} from "./services/user.service";
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CreerUtilisateurComponent
+    CreerUtilisateurComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

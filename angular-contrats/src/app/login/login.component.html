@@ -1,4 +1,4 @@
-<div class="text-center bg-info vh-100">
+<div class="text-center bg-info vh-100" *ngIf="!getLogin()">
   <h1>Gestion les contrats</h1>
   <form class="was-validated m-5 border border-warning bg-warning rounded-4">
     <div class="custom-control mb-3">
@@ -15,5 +15,5 @@
     <input class="btn btn-info text-light mb-5" type="submit" value="Submit" (click)="getUtilisateur()">
     <a routerLink="/creerutilisateur" class="btn btn-link mb-5">Créer un utilisateur</a>
   </form>
-  <p class="text-success" *ngIf="isLogin">login</p>
 </div>
+<app-menu *ngIf="getLogin()"></app-menu>

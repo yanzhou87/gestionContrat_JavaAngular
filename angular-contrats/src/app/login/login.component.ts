@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   motDePasse : string = ""
   erreurPourMotDePasse : boolean = false
   erreurPourNom : boolean = false
-  isLogin : boolean = false
 
   constructor(private userService: UserService) {
 
@@ -24,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   getUtilisateur(): void {
-    let utilisateurCourrant: Observable<Utilisateur> = this.userService.getUtilisateurParNom(this.nom);
+    let utilisateurCourrant: Observable<Utilisateur> = this.userService.getUtilisateurParNom(this.nom,this.motDePasse);
 
     utilisateurCourrant.subscribe(
       user=>{
@@ -34,10 +33,6 @@ export class LoginComponent implements OnInit {
           this.erreurPourNom = false
           console.log(this.erreurPourMotDePasse)
         }else{
-          this.isLogin = true
-          if (user.nom){
-            this.nom = user.nom
-          }
           this.nom =""
           this.motDePasse =""
           this.erreurPourMotDePasse = false
@@ -50,5 +45,9 @@ export class LoginComponent implements OnInit {
            this.erreurPourMotDePasse = false
          }
      });
+  }
+
+  getLogin():boolean{
+    return this.userService.getLogin()
   }
 }
