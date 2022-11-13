@@ -9,6 +9,7 @@ export class UserService {
   private apiServiceUrl =  "";
   private nomUtilisateurCourant: string = "";
   private isLogin : boolean = false
+  private isInscription = false;
   constructor(private http:HttpClient) {
     this.apiServiceUrl = 'http://localhost:8080'
   }
@@ -43,5 +44,25 @@ export class UserService {
 
   public setLogin(isLogin : boolean) : void {
     this.isLogin = isLogin
+  }
+
+  public getIsInscription(): boolean {
+    return this.isInscription;
+  }
+
+  public postUnUtilisateur(nom: string, motDePasse: string, courriel : string): void{
+    this.http.post<object>(`${this.apiServiceUrl}/utilisateurs`,{
+      id: 0,
+      nom: nom,
+      motDePasse:motDePasse,
+      courriel: courriel
+    }).subscribe(
+      repondre =>{
+        this.isInscription = true
+      },
+      error => {
+
+      }
+    )
   }
 }

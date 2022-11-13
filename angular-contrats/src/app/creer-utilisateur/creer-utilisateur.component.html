@@ -1,1 +1,27 @@
-<p>creer-utilisateur works!</p>
+<div class="text-center bg-info vh-100">
+  <h1>Créer un compte</h1>
+  <form class="was-validated m-5 border border-warning bg-warning rounded-4">
+    <div class="custom-control mb-3">
+      <label class="custom-control-label m-2" for="customControlValidationNom" >Nom :</label><br>
+      <input class="custom-control-input" id="customControlValidationNom" required type="text" name="username" [(ngModel)]="nom"><br>
+      <div class="text-danger" *ngIf="erreurPourNom">Nom invalide</div>
+    </div>
+    <div class="custom-control mb-3">
+      <label class="custom-control-label m-2" for="customControlValidationCourriel">Courriel :</label><br>
+      <input class="custom-control-input" id="customControlValidationCourriel" required type="email" name="email" [(ngModel)]="courriel"><br>
+      <div class="text-danger" *ngIf="erreurPourCourriel">Courriel invalide</div>
+    </div>
+    <div class="was-validated mb-3">
+      <label class="custom-control-label m-2" for="customControlValidationMotDePasse" >Mot de passe:</label><br>
+      <input class="custom-control-input" id="customControlValidationMotDePasse" required type="text" name="motdepasse" [(ngModel)]="motDePasse"><br><br>
+      <div class="text-danger" *ngIf="erreurPourMotDePasse">Mot de passe invalide</div>
+    </div>
+    <div class="was-validated mb-3">
+      <label class="custom-control-label m-2" for="customControlValidationVerifierMotDePasse" >Vérifier mot de passe :</label><br>
+      <input class="custom-control-input" id="customControlValidationVerifierMotDePasse" required type="text" name="" [(ngModel)]="verifierMotDePasse"><br><br>
+      <div class="text-danger" *ngIf="erreurPourVerifierMotDePasse">Vérifier mot de passe invalide</div>
+    </div>
+    <input class="btn btn-info text-light mb-5" type="submit" value="Créer mon compte" (click)="postUtilisateur()">
+    <a routerLink="/" class="btn btn-link mb-5">Retourne</a>
+  </form>
+</div>
