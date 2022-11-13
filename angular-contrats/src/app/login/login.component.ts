@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Utilisateur} from "../models/utilisateur";
 import {UserService} from "../services/user.service";
-import {filter, Observable} from "rxjs";
-import * as buffer from "buffer";
+import { Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',

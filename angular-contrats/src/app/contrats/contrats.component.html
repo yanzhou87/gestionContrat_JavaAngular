@@ -1,0 +1,34 @@
+<div class="bg-info vh-100">
+  <nav>
+    <div class="container-fluid">
+      <div class="row">
+        <h1 class="col-2 mb-2">{{nomCourant}}</h1>
+        <div class="col-3 w-50 input-group mb-5 mt-2">
+          <input class="form-control" type="text" placeholder="Chercher un client par son nom" aria-describedby="button-addon2" [(ngModel)]="nomChercher">
+          <button class="btn btn-outline-secondary " type="button" id="button-addon2" (click)="getContratsParNomDuClient()" >Chercher</button>
+        </div>
+        <div class="col-1"></div>
+        <button class="col-2 mt-2 mb-5 btn btn-danger text-light" (click)="deconnecter()">Deconnecter</button>
+      </div>
+    </div>
+  </nav>
+
+  <table class="table table-info table-striped table-hover">
+    <thead>
+    <tr>
+      <th scope="col">nom Client</th>
+      <th scope="col">La date début</th>
+      <th scope="col">La date fin</th>
+      <th scope="col">Le montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let contrat of contrats">
+      <th scope="row">{{contrat.nomClient}}</th>
+      <td>{{contrat.dateDebut}}</td>
+      <td>{{contrat.dateFin}}</td>
+      <td>{{contrat.montant}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

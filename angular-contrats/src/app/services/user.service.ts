@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Utilisateur} from "../models/utilisateur";
 import * as buffer from "buffer";
+import {Contrat} from "../models/contrat";
 
 @Injectable()
 export class UserService {
@@ -10,6 +11,7 @@ export class UserService {
   private nomUtilisateurCourant: string = "";
   private isLogin : boolean = false
   private isInscription = false;
+
   constructor(private http:HttpClient) {
     this.apiServiceUrl = 'http://localhost:8080'
   }
@@ -64,5 +66,13 @@ export class UserService {
 
       }
     )
+  }
+
+  public getContrats():Observable<Contrat[]>{
+    return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contrats`)
+  }
+
+  public getContratsParNomDuClient(nomClient : string) : Observable<Contrat[]>{
+    return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contrats/${nomClient}`)
   }
 }
