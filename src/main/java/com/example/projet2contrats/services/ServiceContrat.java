@@ -79,10 +79,6 @@ public class ServiceContrat {
         List<Contrat> contrats = contratRepository.findAll();
         List<Contrat> contratsExpirants = contrats.stream().filter((contrat)-> Period.between(LocalDate.now(), contrat.getDateFin()).getDays() <= 3).toList();
         List<ContratDTO> contratDTOS = new ArrayList<>();
-    //    contratsExpirants.stream().forEach((contrat)-> contratDTOS.add(new ContratDTO(contrat.getId(),contrat.getNom(),
-     //           contrat.getDateDebut().toString(),contrat.getDateFin().toString(),contrat.getNomClient(),contrat.getMontant(),contrat.getModeDuPaiement(),
-        //        contrat.isRappelDePaiement())));
-
         for(Contrat contrat : contratsExpirants){
             if(contrat.getNom().equals(nomUtilisateur)){
                 ContratDTO contratDTO = new ContratDTO(contrat.getId(),contrat.getNom(),

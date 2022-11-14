@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../services/user.service";
 import {Contrat} from "../models/contrat";
+import {UserService} from "../services/user.service";
 
 @Component({
-  selector: 'app-contrats',
-  templateUrl: './contrats.component.html',
-  styleUrls: ['./contrats.component.css']
+  selector: 'app-contrats-expirants',
+  templateUrl: './contrats-expirants.component.html',
+  styleUrls: ['./contrats-expirants.component.css']
 })
-export class ContratsComponent implements OnInit {
+export class ContratsExpirantsComponent implements OnInit {
 
   nomCourant : string = ""
   nomChercher = ""
@@ -17,8 +17,7 @@ export class ContratsComponent implements OnInit {
 
   ngOnInit(): void {
     this.nomCourant = this.userService.getNomCourrant();
-    this.getContrats()
-    console.log(this.contrats)
+    this.getContratsExpirants()
   }
 
   deconnecter(){
@@ -26,16 +25,19 @@ export class ContratsComponent implements OnInit {
     window.location.href = "/"
   }
 
-  getContrats(){
-    this.userService.getContrats().subscribe(
+  getContratsExpirants(){
+    this.userService.getContratsExpirants().subscribe(
       resultat => {
         this.contrats = resultat
+      },
+      error => {
+        console.log("error : "+error)
       }
     )
   }
 
   getContratsParNomDuClient(){
-    this.userService.getContratsParNomDuClient(this.nomChercher).subscribe(
+    this.userService.getContratsExpirantsParNomDuClient(this.nomChercher).subscribe(
       resultat =>{
         this.contrats = resultat
       }

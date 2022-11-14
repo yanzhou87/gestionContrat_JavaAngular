@@ -11,6 +11,7 @@ import { CreerUtilisateurComponent } from './creer-utilisateur/creer-utilisateur
 import { UserService } from "./services/user.service";
 import { MenuComponent } from './menu/menu.component';
 import { ContratsComponent } from './contrats/contrats.component';
+import { ContratsExpirantsComponent } from './contrats-expirants/contrats-expirants.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ContratsComponent } from './contrats/contrats.component';
     LoginComponent,
     CreerUtilisateurComponent,
     MenuComponent,
-    ContratsComponent
+    ContratsComponent,
+    ContratsExpirantsComponent
   ],
   imports: [
     BrowserModule,

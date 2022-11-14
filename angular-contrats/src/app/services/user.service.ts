@@ -75,4 +75,13 @@ export class UserService {
   public getContratsParNomDuClient(nomClient : string) : Observable<Contrat[]>{
     return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contrats/${nomClient}`)
   }
+
+  public getContratsExpirants():Observable<Contrat[]>{
+    return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contratsExpirants`)
+  }
+
+  public getContratsExpirantsParNomDuClient(nomClient : string) : Observable<Contrat[]>{
+    return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contratsExpirant/${nomClient}`)
+  }
 }
+

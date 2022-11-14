@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -59,6 +58,7 @@ public class ContratController {
 
     @GetMapping("utilisateurs/{nom}/contratsExpirants")
     public ResponseEntity<List<ContratDTO>> getAllContratExpirants(@PathVariable String nom) {
+        System.out.println( "expirants : " +serviceContrat.getContratsExpirants(nom));
         return new ResponseEntity<>(serviceContrat.getContratsExpirants(nom), HttpStatus.OK);
     }
 
