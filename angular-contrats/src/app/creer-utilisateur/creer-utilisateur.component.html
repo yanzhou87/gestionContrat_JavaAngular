@@ -1,6 +1,7 @@
 <div class="text-center bg-info vh-100">
   <h1>Créer un compte</h1>
   <form class="was-validated m-5 border border-warning bg-warning rounded-4">
+    <div class="text-danger" *ngIf="erreurDeUnique">Nom ou courriel n'est pas unique</div>
     <div class="custom-control mb-3">
       <label class="custom-control-label m-2" for="customControlValidationNom" >Nom :</label><br>
       <input class="custom-control-input" id="customControlValidationNom" required type="text" name="username" [(ngModel)]="nom"><br>
@@ -18,7 +19,7 @@
     </div>
     <div class="was-validated mb-3">
       <label class="custom-control-label m-2" for="customControlValidationVerifierMotDePasse" >Vérifier mot de passe :</label><br>
-      <input class="custom-control-input" id="customControlValidationVerifierMotDePasse" required type="text" name="" [(ngModel)]="verifierMotDePasse"><br><br>
+      <input class="custom-control-input" id="customControlValidationVerifierMotDePasse" required type="text" name="customControlValidationVerifierMotDePasse" [(ngModel)]="verifierMotDePasse"><br><br>
       <div class="text-danger" *ngIf="erreurPourVerifierMotDePasse">Vérifier mot de passe invalide</div>
     </div>
     <input class="btn btn-info text-light mb-5" type="submit" value="Créer mon compte" (click)="postUtilisateur()">

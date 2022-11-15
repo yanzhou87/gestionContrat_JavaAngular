@@ -54,7 +54,7 @@ public class ServiceUtilisateur {
 
     public boolean verifierUnique(String nom,String courriel){
         List<Utilisateur> utilisateurs =utilisateurRepository.findAll();
-        if(utilisateurs == null){
+        if(utilisateurs.isEmpty()){
             return true;
         }
         boolean courrielUnique = true;
@@ -67,6 +67,8 @@ public class ServiceUtilisateur {
                 courrielUnique = false;
             }
         }
+        System.out.println(courrielUnique);
+        System.out.println(nomlUnique);
         return courrielUnique && nomlUnique;
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 
 @Component({
@@ -15,47 +15,59 @@ export class CreerUtilisateurComponent implements OnInit {
   erreurPourCourriel: boolean = false;
   erreurPourMotDePasse: boolean = false;
   erreurPourVerifierMotDePasse: boolean = false;
-  isInscription : boolean = false;
-  constructor(private userService: UserService) { }
+  erreurDeUnique: boolean = false;
+
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
+
   }
 
-  validePourLesChamps(){
-    if(this.nom == "" || this.nom.length < 2){
+  validePourLesChamps() {
+    if (this.nom == "" || this.nom.length < 2) {
       this.erreurPourNom = true
-    }else{
+    } else {
       this.erreurPourNom = false
     }
-    if(this.motDePasse.length < 6){
+    if (this.motDePasse.length < 6) {
       this.erreurPourMotDePasse = true
-    }else{
+    } else {
       this.erreurPourMotDePasse = false;
     }
-    console.log("this.verifierMotDePasse != this.motDePasse" + this.verifierMotDePasse === this.motDePasse)
-    if(this.verifierMotDePasse !== this.motDePasse){
+    console.log("this.verifierMotDePasse != this.motDePasse" + this.verifierMotDePasse == this.motDePasse)
+    console.log("mot de passe: " + this.motDePasse)
+    console.log("vérifier le mot de passe " + this.verifierMotDePasse)
+    if (this.verifierMotDePasse != this.motDePasse) {
       this.erreurPourVerifierMotDePasse = true
-    }else{
+    } else {
+
       this.erreurPourVerifierMotDePasse = false
     }
-    if(this.courriel == ""){
+    if (this.courriel == "") {
       this.erreurPourCourriel = true;
-    }else{
-      this.erreurPourCourriel =false;
+    } else {
+      this.erreurPourCourriel = false;
     }
   }
 
-  postUtilisateur(){
+  postUtilisateur() {
     this.validePourLesChamps();
-    if(!this.erreurPourNom && !this.erreurPourCourriel && !this.erreurPourMotDePasse && !this.erreurPourVerifierMotDePasse){
-      this.userService.postUnUtilisateur(this.nom,this.motDePasse,this.courriel);
-    }
-    this.isInscription = this.userService.getIsInscription()
-    if(this.isInscription){
-      this.nom = ""
-      this.courriel = ""
-      this.motDePasse = ""
-      this.verifierMotDePasse = ""
+    if (!this.erreurPourNom && !this.erreurPourCourriel && !this.erreurPourMotDePasse && !this.erreurPourVerifierMotDePasse) {
+      this.userService.postUnUtilisateur(this.nom, this.motDePasse, this.courriel)
+        .subscribe({
+            next: value => {
+              this.nom = ""
+              this.courriel = ""
+              this.motDePasse = ""
+              this.verifierMotDePasse = ""
+              window.location.href = "/"
+            },
+            error: repondre => {
+              this.erreurDeUnique = true;
+            }
+          }
+        )
     }
   }
 }

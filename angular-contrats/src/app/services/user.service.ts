@@ -52,20 +52,13 @@ export class UserService {
     return this.isInscription;
   }
 
-  public postUnUtilisateur(nom: string, motDePasse: string, courriel : string): void{
-    this.http.post<object>(`${this.apiServiceUrl}/utilisateurs`,{
+  public postUnUtilisateur(nom: string, motDePasse: string, courriel : string): Observable<any>{
+    return this.http.post<object>(`${this.apiServiceUrl}/utilisateurs`, {
       id: 0,
       nom: nom,
-      motDePasse:motDePasse,
+      motDePasse: motDePasse,
       courriel: courriel
-    }).subscribe(
-      repondre =>{
-        this.isInscription = true
-      },
-      error => {
-
-      }
-    )
+    });
   }
 
   public getContrats():Observable<Contrat[]>{
