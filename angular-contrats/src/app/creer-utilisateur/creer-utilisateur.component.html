@@ -10,7 +10,7 @@
     <div class="custom-control mb-3">
       <label class="custom-control-label m-2" for="customControlValidationCourriel">Courriel :</label><br>
       <input class="custom-control-input" id="customControlValidationCourriel" required
-             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" type="email" name="email" [(ngModel)]="courriel"><br>
+             type="email" name="customControlValidationCourriel" [(ngModel)]="courriel"><br>
       <div class="text-danger" *ngIf="erreurPourCourriel">Courriel invalide</div>
     </div>
     <div class="was-validated mb-3">

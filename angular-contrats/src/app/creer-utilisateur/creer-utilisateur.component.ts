@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
-
+import {FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-creer-utilisateur',
   templateUrl: './creer-utilisateur.component.html',
@@ -8,7 +8,8 @@ import {UserService} from "../services/user.service";
 })
 export class CreerUtilisateurComponent implements OnInit {
   nom: string = "";
-  courriel: string = "";
+  courriel : string = ""
+
   motDePasse: string = "";
   verifierMotDePasse: string = "";
   erreurPourNom: boolean = false;
@@ -30,6 +31,14 @@ export class CreerUtilisateurComponent implements OnInit {
     } else {
       this.erreurPourNom = false
     }
+    if (this.courriel.match(new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'))) {
+      this.erreurPourCourriel = false;
+      console.log("valide : " + this.courriel)
+    } else {
+      console.log("invalide : " + this.courriel)
+      this.erreurPourCourriel = true;
+    }
+
     if (this.motDePasse.length < 6) {
       this.erreurPourMotDePasse = true
     } else {
@@ -43,11 +52,6 @@ export class CreerUtilisateurComponent implements OnInit {
     } else {
 
       this.erreurPourVerifierMotDePasse = false
-    }
-    if (this.courriel == "") {
-      this.erreurPourCourriel = true;
-    } else {
-      this.erreurPourCourriel = false;
     }
   }
 
