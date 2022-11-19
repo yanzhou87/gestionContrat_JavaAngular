@@ -1,28 +1,62 @@
-<div class="text-center bg-info vh-100">
+<div class="container-fluid text-center bg-info vh-100">
   <h1>Créer un compte</h1>
   <form class="was-validated m-5 border border-warning bg-warning rounded-4">
     <div class="text-danger" *ngIf="erreurDeUnique">Nom ou courriel n'est pas unique</div>
-    <div class="custom-control mb-3">
-      <label class="custom-control-label m-2" for="customControlValidationNom" >Nom :</label><br>
-      <input class="custom-control-input" id="customControlValidationNom" required type="text" name="username" [(ngModel)]="nom"><br>
-      <div class="text-danger" *ngIf="erreurPourNom">Nom invalide</div>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Nom :</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="text" required name="username" [(ngModel)]="nom">
+        </div>
+        <div class="text-danger" *ngIf="erreurPourNom">Nom invalide</div>
+      </div>
+      <div class="col-3"></div>
     </div>
-    <div class="custom-control mb-3">
-      <label class="custom-control-label m-2" for="customControlValidationCourriel">Courriel :</label><br>
-      <input class="custom-control-input" id="customControlValidationCourriel" required
-             type="email" name="customControlValidationCourriel" [(ngModel)]="courriel"><br>
-      <div class="text-danger" *ngIf="erreurPourCourriel">Courriel invalide</div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Courriel :</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="email" required name="username" [(ngModel)]="courriel">
+        </div>
+        <div class="text-danger" *ngIf="erreurPourCourriel">Courriel invalide</div>
+      </div>
+      <div class="col-3"></div>
     </div>
-    <div class="was-validated mb-3">
-      <label class="custom-control-label m-2" for="customControlValidationMotDePasse" >Mot de passe:</label><br>
-      <input class="custom-control-input" id="customControlValidationMotDePasse" required type="text" name="motdepasse" [(ngModel)]="motDePasse"><br><br>
-      <div class="text-danger" *ngIf="erreurPourMotDePasse">Mot de passe invalide</div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Mot de passe:</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="{{hide?'password' : 'text'}}" required
+                 id="customControlValidationMotDePasse"
+                 aria-describedby="button" name="motdepasse" [(ngModel)]="motDePasse">
+          <button class="btn btn-outline-secondary " type="button" id="button" (click)="hide = !hide">
+            {{hide ? "show" : "hide" }}</button>
+        </div>
+        <div class="text-danger" *ngIf="erreurPourMotDePasse">Mot de passe invalide</div>
+      </div>
+      <div class="col-3"></div>
     </div>
-    <div class="was-validated mb-3">
-      <label class="custom-control-label m-2" for="customControlValidationVerifierMotDePasse" >Vérifier mot de passe :</label><br>
-      <input class="custom-control-input" id="customControlValidationVerifierMotDePasse" required type="text" name="customControlValidationVerifierMotDePasse" [(ngModel)]="verifierMotDePasse"><br><br>
-      <div class="text-danger" *ngIf="erreurPourVerifierMotDePasse">Vérifier mot de passe invalide</div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Vérifier mot de passe :</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="{{hide?'password' : 'text'}}" required
+                 name="verifiermotdepasse" [(ngModel)]="verifierMotDePasse">
+          <button class="btn btn-outline-secondary " type="button" (click)="hide = !hide">
+            {{hide ? "show" : "hide" }}</button>
+        </div>
+        <div class="text-danger" *ngIf="erreurPourVerifierMotDePasse">Vérifier mot de passe invalide</div>
+      </div>
+      <div class="col-3"></div>
     </div>
+
     <input class="btn btn-info text-light mb-5" type="submit" value="Créer mon compte" (click)="postUtilisateur()">
     <a routerLink="/" class="btn btn-link mb-5">Retourne</a>
   </form>

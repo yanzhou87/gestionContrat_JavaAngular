@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
-import {FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-creer-utilisateur',
   templateUrl: './creer-utilisateur.component.html',
@@ -9,7 +8,6 @@ import {FormControl, Validators} from '@angular/forms';
 export class CreerUtilisateurComponent implements OnInit {
   nom: string = "";
   courriel : string = ""
-
   motDePasse: string = "";
   verifierMotDePasse: string = "";
   erreurPourNom: boolean = false;
@@ -17,6 +15,7 @@ export class CreerUtilisateurComponent implements OnInit {
   erreurPourMotDePasse: boolean = false;
   erreurPourVerifierMotDePasse: boolean = false;
   erreurDeUnique: boolean = false;
+  hide = true;
 
   constructor(private userService: UserService) {
   }
@@ -41,6 +40,7 @@ export class CreerUtilisateurComponent implements OnInit {
 
     if (this.motDePasse.length < 6) {
       this.erreurPourMotDePasse = true
+      this.erreurPourCourriel = false
     } else {
       this.erreurPourMotDePasse = false;
     }

@@ -12,6 +12,10 @@ import { UserService } from "./services/user.service";
 import { MenuComponent } from './menu/menu.component';
 import { ContratsComponent } from './contrats/contrats.component';
 import { ContratsExpirantsComponent } from './contrats-expirants/contrats-expirants.component';
+import {MatIconModule} from "@angular/material/icon";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { ContratsExpirantsComponent } from './contrats-expirants/contrats-expira
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

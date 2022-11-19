@@ -4,8 +4,10 @@
       <div class="row">
         <h1 class="col-2 mb-2">{{nomCourant}}</h1>
         <div class="col-3 w-50 input-group mb-5 mt-2">
-          <input class="form-control" type="text" placeholder="Chercher un client par son nom" aria-describedby="button-addon2" [(ngModel)]="nomChercher">
-          <button class="btn btn-outline-secondary " type="button" id="button-addon2" (click)="getContratsParNomDuClient()" >Chercher</button>
+          <input class="form-control" type="text" placeholder="Chercher un client par son nom"
+                 aria-describedby="button-addon2" [(ngModel)]="nomChercher">
+          <button class="btn btn-outline-secondary " type="button" id="button-addon2"
+                  (click)="getContratsParNomDuClient()" >Chercher</button>
         </div>
         <div class="col-1"></div>
         <button class="col-2 mt-2 mb-5 btn btn-danger text-light" (click)="deconnecter()">Deconnecter</button>
