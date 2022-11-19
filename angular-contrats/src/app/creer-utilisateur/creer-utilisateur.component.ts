@@ -7,6 +7,7 @@ import {UserService} from "../services/user.service";
 })
 export class CreerUtilisateurComponent implements OnInit {
   nom: string = "";
+  com: string = ".com"
   courriel : string = ""
   motDePasse: string = "";
   verifierMotDePasse: string = "";
@@ -30,7 +31,9 @@ export class CreerUtilisateurComponent implements OnInit {
     } else {
       this.erreurPourNom = false
     }
-    if (this.courriel.match(new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'))) {
+    //+\.[a-z]{2,4}$
+    console.log("email : "+this.courriel)
+    if (this.courriel.match(new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]$'))) {
       this.erreurPourCourriel = false;
       console.log("valide : " + this.courriel)
     } else {
@@ -57,6 +60,7 @@ export class CreerUtilisateurComponent implements OnInit {
 
   postUtilisateur() {
     this.validePourLesChamps();
+    this.courriel = this.courriel + this.com
     if (!this.erreurPourNom && !this.erreurPourCourriel && !this.erreurPourMotDePasse && !this.erreurPourVerifierMotDePasse) {
       this.userService.postUnUtilisateur(this.nom, this.motDePasse, this.courriel)
         .subscribe({

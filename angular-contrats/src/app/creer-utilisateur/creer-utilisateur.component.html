@@ -7,7 +7,7 @@
       <div class="col-6">
         <h5>Nom :</h5>
         <div class="input-group mb-3 mt-2">
-          <input class="form-control" type="text" required name="username" [(ngModel)]="nom">
+          <input class="form-control" type="text" required name="nom" [(ngModel)]="nom">
         </div>
         <div class="text-danger" *ngIf="erreurPourNom">Nom invalide</div>
       </div>
@@ -18,8 +18,14 @@
       <div class="col-3"></div>
       <div class="col-6">
         <h5>Courriel :</h5>
+<!--        <div class="input-group mb-3 mt-2">-->
+<!--          <input class="form-control" type="email" required name="username" [(ngModel)]="courriel">-->
+<!--        </div>-->
         <div class="input-group mb-3 mt-2">
-          <input class="form-control" type="email" required name="username" [(ngModel)]="courriel">
+          <input type="email" class="form-control" required aria-describedby="basic-addon2" name="courriel" [(ngModel)]="courriel">
+          <div class="input-group-append">
+            <span class="input-group-text bg-warning border-dark" id="basic-addon2">.com</span>
+          </div>
         </div>
         <div class="text-danger" *ngIf="erreurPourCourriel">Courriel invalide</div>
       </div>
@@ -33,8 +39,8 @@
         <div class="input-group mb-3 mt-2">
           <input class="form-control" type="{{hide?'password' : 'text'}}" required
                  id="customControlValidationMotDePasse"
-                 aria-describedby="button" name="motdepasse" [(ngModel)]="motDePasse">
-          <button class="btn btn-outline-secondary " type="button" id="button" (click)="hide = !hide">
+                 aria-describedby="button" name="motDePasse" [(ngModel)]="motDePasse">
+          <button class="btn btn-outline-secondary border-dark text-dark" type="button" id="button" (click)="hide = !hide">
             {{hide ? "show" : "hide" }}</button>
         </div>
         <div class="text-danger" *ngIf="erreurPourMotDePasse">Mot de passe invalide</div>
@@ -48,8 +54,8 @@
         <h5>Vérifier mot de passe :</h5>
         <div class="input-group mb-3 mt-2">
           <input class="form-control" type="{{hide?'password' : 'text'}}" required
-                 name="verifiermotdepasse" [(ngModel)]="verifierMotDePasse">
-          <button class="btn btn-outline-secondary " type="button" (click)="hide = !hide">
+                 name="verifierMotDePasse" [(ngModel)]="verifierMotDePasse">
+          <button class="btn btn-outline-secondary border-dark text-dark" type="button" (click)="hide = !hide">
             {{hide ? "show" : "hide" }}</button>
         </div>
         <div class="text-danger" *ngIf="erreurPourVerifierMotDePasse">Vérifier mot de passe invalide</div>
