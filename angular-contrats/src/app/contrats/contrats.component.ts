@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Contrat} from "../models/contrat";
 
@@ -9,36 +9,45 @@ import {Contrat} from "../models/contrat";
 })
 export class ContratsComponent implements OnInit {
 
-  nomCourant : string = ""
+  nomCourant: string = ""
   nomChercher = ""
-  contrats : Contrat[] = []
+  contrats: Contrat[] = []
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.nomCourant = this.userService.getNomCourrant();
     this.getContrats()
-    console.log(this.contrats)
   }
 
-  deconnecter(){
+  deconnecter() {
     this.userService.setLogin(false)
     window.location.href = "/"
   }
 
-  getContrats(){
-    this.userService.getContrats().subscribe(
+  getContrats() {
+    this.userService.getContrats().subscribe({
+        next: value => {
+          this.contrats = value
+        },
+        error: erreur => {
+
+        }
+      }
+    )
+  }
+
+  getContratsParNomDuClient() {
+    this.userService.getContratsParNomDuClient(this.nomChercher).subscribe(
       resultat => {
         this.contrats = resultat
       }
     )
   }
 
-  getContratsParNomDuClient(){
-    this.userService.getContratsParNomDuClient(this.nomChercher).subscribe(
-      resultat =>{
-        this.contrats = resultat
-      }
-    )
+  saveContratId(id: number) {
+    this.userService.getContratParId(id)
+    window.location.href = "contrat"
   }
 }

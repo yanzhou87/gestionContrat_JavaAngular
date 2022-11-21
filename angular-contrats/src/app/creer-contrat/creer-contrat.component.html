@@ -1,0 +1,71 @@
+<div class="container-fluid text-center bg-info vh-100">
+  <h1>Créer un contrat</h1>
+  : string;
+  <form class="was-validated m-5 border border-warning bg-warning rounded-4">
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Nom du client:</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="text" required name="nom" [(ngModel)]="contrat.nomClient">
+        </div>
+        <div class="text-danger" *ngIf="erreurPourNomClient">Nom du client invalide</div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Date début :</h5>
+        <div class="input-group mb-3 mt-2">
+          <input type="date" class="form-control" required  name="dateDebut" [(ngModel)]="contrat.dateDebut">
+        </div>
+        <div class="text-danger" *ngIf="erreurPourDateDebut">Date début invalide</div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Date fin :</h5>
+        <div class="input-group mb-3 mt-2">
+          <input type="date" class="form-control" required  name="dateFin" [(ngModel)]="contrat.dateFin">
+        </div>
+        <div class="text-danger" *ngIf="erreurPourDateFin">Date fin invalide</div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Montant:</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="number" required min="2"
+                 id="montant" name="montant" [(ngModel)]="contrat.montant">
+        </div>
+        <div class="text-danger" *ngIf="erreurPourMontant">Montant invalide</div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Vérifier mot de passe :</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="text" required
+                 name="modeDuPaiement" [(ngModel)]="contrat.modeDuPaiement">
+        </div>
+        <div class="text-danger" *ngIf="erreurPourModeDuPaiement">Mode du paiement invalide</div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <input class="btn btn-info text-light mb-5" type="submit" value="Créer mon compte" (click)="postContrat()">
+    <a routerLink="menu" class="btn btn-link mb-5" (click)="changerPage()" >Retourne</a>
+  </form>
+</div>
+

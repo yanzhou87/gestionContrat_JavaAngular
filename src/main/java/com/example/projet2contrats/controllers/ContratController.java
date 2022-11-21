@@ -53,6 +53,7 @@ public class ContratController {
 
     @GetMapping("/utilisateurs/contrats/{id}")
     public ResponseEntity<ContratDTO> getContratsParId( @PathVariable long id) {
+        System.out.println("id : " + id);
         return new ResponseEntity<>(serviceContrat.getContratParId( id), HttpStatus.OK);
     }
 

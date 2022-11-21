@@ -9,11 +9,12 @@ import {UserService} from "../services/user.service";
 export class MenuComponent implements OnInit {
 
   nomCourant : string = ""
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+    this.nomCourant = this.userService.getNomCourrant();
+  }
 
   ngOnInit(): void {
     this.nomCourant = this.userService.getNomCourrant();
-    console.log("menu : "+this.nomCourant)
   }
 
   deconnecter(){

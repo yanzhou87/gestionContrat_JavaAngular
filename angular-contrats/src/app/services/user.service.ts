@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Utilisateur} from "../models/utilisateur";
-import * as buffer from "buffer";
 import {Contrat} from "../models/contrat";
 
 @Injectable()
@@ -11,7 +10,16 @@ export class UserService {
   private nomUtilisateurCourant: string = "";
   private isLogin : boolean = false
   private isInscription = false;
-
+  private contratId : number = 0;
+  private contrat : Contrat = {
+    id: 0,
+    nom: "",
+    dateDebut: "",
+    dateFin: "",
+    nomClient: "",
+    montant: 0,
+    modeDuPaiement: ""
+  }
   constructor(private http:HttpClient) {
     this.apiServiceUrl = 'http://localhost:8080'
   }
@@ -76,5 +84,37 @@ export class UserService {
   public getContratsExpirantsParNomDuClient(nomClient : string) : Observable<Contrat[]>{
     return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contratsExpirant/${nomClient}`)
   }
+
+  public saveContratId(id : number) : void{
+    alert(id)
+    this.contratId = id;
+  }
+
+  public getContratParId(id : number) : Contrat{
+    this.http.get<Contrat>(`${this.apiServiceUrl}/utilisateurs/contrats/${id}`).subscribe(
+      {
+        next: value => {
+          this.contrat = value;
+        }
+      }
+    )
+    return this.contrat
+  }
+
+  public getContrat(): Contrat {
+    return this.contrat
+  }
+
+  public postUnContrat(contrat: Contrat): Observable<any>{
+    return this.http.post<object>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/create"`, {
+      nom: contrat.nom,
+      dateDebut: contrat.dateDebut,
+      dateFin: contrat.dateFin,
+      nomClient: contrat.nomClient,
+      montant: contrat.montant,
+      modeDuPaiement: contrat.modeDuPaiement
+    });
+  }
+
 }
 

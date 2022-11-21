@@ -16,6 +16,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import { ContratComponent } from './contrat/contrat.component';
+import { CreerContratComponent } from './creer-contrat/creer-contrat.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {MatButtonModule} from "@angular/material/button";
     CreerUtilisateurComponent,
     MenuComponent,
     ContratsComponent,
-    ContratsExpirantsComponent
+    ContratsExpirantsComponent,
+    ContratComponent,
+    CreerContratComponent
   ],
   imports: [
     BrowserModule,

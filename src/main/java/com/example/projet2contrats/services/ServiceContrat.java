@@ -43,8 +43,6 @@ public class ServiceContrat {
     }
 
     public List<ContratDTO> getContratsParNomUtilisateur(String nom){
-        System.out.println("getContratsParNomUtilisateur : " + nom);
-
         List<ContratDTO> contrats = getAllContrats();
         List<ContratDTO> contratDTOs = new ArrayList<>();
         for(ContratDTO contratDTO : contrats){
@@ -52,9 +50,7 @@ public class ServiceContrat {
                 contratDTOs.add(contratDTO);
             }
         }
-
         contratDTOs.sort(Comparator.comparing(ContratDTO::getId));
-        System.out.println("fin get :" + contratDTOs);
         return contratDTOs;
     }
     public List<ContratDTO> getContratsParNomUtilisateurEtNomClient(String nom, String nomClient) {
