@@ -19,6 +19,7 @@ export class CreerUtilisateurComponent implements OnInit {
   hide = true;
 
   constructor(private userService: UserService) {
+
   }
 
   ngOnInit(): void {
@@ -33,7 +34,7 @@ export class CreerUtilisateurComponent implements OnInit {
     }
     //+\.[a-z]{2,4}$
     console.log("email : "+this.courriel)
-    if (this.courriel.match(new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]$'))) {
+    if (this.courriel.match(new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'))) {
       this.erreurPourCourriel = false;
       console.log("valide : " + this.courriel)
     } else {
@@ -60,7 +61,7 @@ export class CreerUtilisateurComponent implements OnInit {
 
   postUtilisateur() {
     this.validePourLesChamps();
-    this.courriel = this.courriel + this.com
+   // this.courriel = this.courriel + this.com
     if (!this.erreurPourNom && !this.erreurPourCourriel && !this.erreurPourMotDePasse && !this.erreurPourVerifierMotDePasse) {
       this.userService.postUnUtilisateur(this.nom, this.motDePasse, this.courriel)
         .subscribe({

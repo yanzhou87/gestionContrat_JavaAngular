@@ -50,4 +50,8 @@ export class ContratsComponent implements OnInit {
     this.userService.getContratParId(id)
     window.location.href = "contrat"
   }
+
+  retourne(){
+    window.location.href = "menu"
+  }
 }

@@ -1,66 +1,59 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Utilisateur} from "../models/utilisateur";
 import {Contrat} from "../models/contrat";
+import {environment} from "../../environments/environment";
+import {Router} from "@angular/router";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UserService {
-  private apiServiceUrl =  "";
+  private apiServiceUrl = environment.apiBaseUrl;
   private nomUtilisateurCourant: string = "";
-  private isLogin : boolean = false
-  private isInscription = false;
-  private contratId : number = 0;
-  private contrat : Contrat = {
-    id: 0,
-    nom: "",
-    dateDebut: "",
-    dateFin: "",
-    nomClient: "",
-    montant: 0,
-    modeDuPaiement: ""
-  }
-  constructor(private http:HttpClient) {
-    this.apiServiceUrl = 'http://localhost:8080'
+  private isLogin: boolean = false
+  private contratId: number = 0;
+
+  constructor(private http: HttpClient, private router: Router) {
+    const nomlocal = localStorage.getItem("nom_utilisateur")
+    const contratId = localStorage.getItem("contratId")
+    if (nomlocal) {
+      this.nomUtilisateurCourant = nomlocal;
+    }
+    if (contratId) {
+      this.contratId = Number(contratId)
+    }
   }
 
-  public getUtilisateurParNom(nom: string | undefined, motDePasse : string):Observable<Utilisateur>{
-    const utilisateur : Observable<Utilisateur> = this.http.get<Utilisateur>(`${this.apiServiceUrl}/utilisateurs/${nom}`)
-    utilisateur.subscribe(
-      user => {
-        if(user.nom){
-          console.log("getUSER : "+user.nom)
-          this.nomUtilisateurCourant = user.nom
-          if(user.motDePasse == motDePasse){
-            this.isLogin = true
+  public getUtilisateurParNom(nom: string | undefined, motDePasse: string): Observable<Utilisateur> {
+    const utilisateur: Observable<Utilisateur> = this.http.get<Utilisateur>(`${this.apiServiceUrl}/utilisateurs/${nom}`)
+    utilisateur.subscribe({
+        next: user => {
+          if (user.nom) {
+            this.nomUtilisateurCourant = user.nom
+            localStorage.setItem("nom_utilisateur", user.nom);
+            if (user.motDePasse == motDePasse) {
+              this.isLogin = true
+            }
           }
         }
-      },
-      error => {
-
       }
     )
     return utilisateur
   }
 
-  public getNomCourrant() : string {
-    console.log("SERVE GET COURRANT : "+this.nomUtilisateurCourant)
+  public getNomCourrant(): string {
     return this.nomUtilisateurCourant;
   }
 
-  public getLogin() : boolean {
-      return this.isLogin;
+  public getLogin(): boolean {
+    return this.isLogin;
   }
 
-  public setLogin(isLogin : boolean) : void {
+  public setLogin(isLogin: boolean): void {
     this.isLogin = isLogin
   }
 
-  public getIsInscription(): boolean {
-    return this.isInscription;
-  }
-
-  public postUnUtilisateur(nom: string, motDePasse: string, courriel : string): Observable<any>{
+  public postUnUtilisateur(nom: string, motDePasse: string, courriel: string): Observable<any> {
     return this.http.post<object>(`${this.apiServiceUrl}/utilisateurs`, {
       id: 0,
       nom: nom,
@@ -69,43 +62,31 @@ export class UserService {
     });
   }
 
-  public getContrats():Observable<Contrat[]>{
+  public getContrats(): Observable<Contrat[]> {
     return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contrats`)
   }
 
-  public getContratsParNomDuClient(nomClient : string) : Observable<Contrat[]>{
+  public getContratsParNomDuClient(nomClient: string): Observable<Contrat[]> {
     return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contrats/${nomClient}`)
   }
 
-  public getContratsExpirants():Observable<Contrat[]>{
+  public getContratsExpirants(): Observable<Contrat[]> {
     return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contratsExpirants`)
   }
 
-  public getContratsExpirantsParNomDuClient(nomClient : string) : Observable<Contrat[]>{
+  public getContratsExpirantsParNomDuClient(nomClient: string): Observable<Contrat[]> {
     return this.http.get<Contrat[]>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/contratsExpirant/${nomClient}`)
   }
 
-  public saveContratId(id : number) : void{
-    alert(id)
-    this.contratId = id;
+  public getContratParId(id: number): void {
+    localStorage.setItem("contratId", id.toString());
   }
 
-  public getContratParId(id : number) : Contrat{
-    this.http.get<Contrat>(`${this.apiServiceUrl}/utilisateurs/contrats/${id}`).subscribe(
-      {
-        next: value => {
-          this.contrat = value;
-        }
-      }
-    )
-    return this.contrat
+  public getContrat(): Observable<Contrat> {
+    return this.http.get<Contrat>(`${this.apiServiceUrl}/utilisateurs/contrats/${this.contratId}`);
   }
 
-  public getContrat(): Contrat {
-    return this.contrat
-  }
-
-  public postUnContrat(contrat: Contrat): Observable<any>{
+  public postUnContrat(contrat: Contrat): Observable<any> {
     return this.http.post<object>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/create"`, {
       nom: contrat.nom,
       dateDebut: contrat.dateDebut,
@@ -115,6 +96,5 @@ export class UserService {
       modeDuPaiement: contrat.modeDuPaiement
     });
   }
-
 }
 

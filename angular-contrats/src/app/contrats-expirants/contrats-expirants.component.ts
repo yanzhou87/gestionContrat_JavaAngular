@@ -43,4 +43,8 @@ export class ContratsExpirantsComponent implements OnInit {
       }
     )
   }
+
+  retourne(){
+    window.location.href = "menu"
+  }
 }

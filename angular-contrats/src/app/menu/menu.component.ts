@@ -19,5 +19,6 @@ export class MenuComponent implements OnInit {
 
   deconnecter(){
     this.userService.setLogin(false)
+    window.location.href = "/"
   }
 }

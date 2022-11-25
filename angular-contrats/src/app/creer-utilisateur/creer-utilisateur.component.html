@@ -23,9 +23,6 @@
 <!--        </div>-->
         <div class="input-group mb-3 mt-2">
           <input type="email" class="form-control" required aria-describedby="basic-addon2" name="courriel" [(ngModel)]="courriel">
-          <div class="input-group-append">
-            <span class="input-group-text bg-warning border-dark" id="basic-addon2">.com</span>
-          </div>
         </div>
         <div class="text-danger" *ngIf="erreurPourCourriel">Courriel invalide</div>
       </div>
@@ -64,6 +61,6 @@
     </div>
 
     <input class="btn btn-info text-light mb-5" type="submit" value="Créer mon compte" (click)="postUtilisateur()">
-    <a class="btn btn-link mb-5">Retourne</a>
+    <a class="btn btn-link mb-5" routerLink="/">Retourne</a>
   </form>
 </div>

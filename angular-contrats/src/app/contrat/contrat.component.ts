@@ -14,7 +14,7 @@ export class ContratComponent implements OnInit {
     id: 0,
     nom: "",
     dateDebut: "",
-    dateFin: "",
+    dateFin:"",
     nomClient: "",
     montant: 0,
     modeDuPaiement: ""
@@ -23,7 +23,13 @@ export class ContratComponent implements OnInit {
 
   ngOnInit(): void {
     this.nomCourant = this.userService.getNomCourrant();
-    this.contrat = this.userService.getContrat()
+    this.userService.getContrat().subscribe(
+      {
+        next:value =>{
+         this.contrat = value
+        }
+      }
+    )
     // this.userService.getContratParId().subscribe(
     //   {
     //     next: value => {

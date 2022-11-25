@@ -1,14 +1,66 @@
-<div class="bg-info vh-100">
+<div class="bg-info vh-100 text-center">
   <nav>
     <div class="container-fluid">
       <div class="row">
         <h1 class="col-2 mb-2">{{nomCourant}}</h1>
-        <div class="col-1"></div>
-        <button class="col-2 mt-2 mb-5 btn btn-danger text-light" (click)="deconnecter()">Deconnecter</button>
+        <div class="col-7"></div>
+        <button class="col-2 mt-2 mx-2 mb-5 btn btn-danger text-light" (click)="deconnecter()">Deconnecter</button>
       </div>
     </div>
   </nav>
-  <div class="m-5">
-    {{contrat.dateFin}}
+  <h1>Contrat</h1>
+  <div class="border border-warning rounded-3 p-4 bg-warning container">
+    <div class="row">
+      <div class="col-4">
+        <h3>Nom du client : </h3>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-4">
+        <h3>{{contrat.nomClient}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <h3>Date début : </h3>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-4">
+        <h3>{{contrat.dateDebut}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <h3>Date fin : </h3>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-4">
+        <h3>{{contrat.dateFin}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <h3>Montant : </h3>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-4">
+        <h3>{{contrat.montant}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <h3>Mode du paiement : </h3>
+      </div>
+      <div class="col-2">
+      </div>
+      <div class="col-4">
+        <h3>{{contrat.modeDuPaiement.length == 0 ?  "Pas encore choisi": contrat.modeDuPaiement }}</h3>
+      </div>
+    </div>
   </div>
+  <a class="m-3 btn btn-success text-light" routerLink="/creercontrat">Creer un nouveau contrat</a>
+  <a class="m-3 btn btn-danger text-light" routerLink="/contrats">Retourner</a>
 </div>

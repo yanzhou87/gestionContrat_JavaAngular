@@ -1,8 +1,8 @@
 export interface Contrat{
   id: number;
   nom: string;
-  dateDebut: string;
-  dateFin: string;
+  dateDebut: "";
+  dateFin: "";
   nomClient: string;
   montant: number;
   modeDuPaiement: string;
