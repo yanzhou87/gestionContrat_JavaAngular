@@ -44,6 +44,11 @@ export class ContratsExpirantsComponent implements OnInit {
     )
   }
 
+  saveContratId(id: number) {
+    this.userService.getContratParId(id)
+    window.location.href = "contrat"
+  }
+
   retourne(){
     window.location.href = "menu"
   }

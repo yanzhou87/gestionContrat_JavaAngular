@@ -25,7 +25,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let contrat of contrats">
+    <tr *ngFor="let contrat of contrats" (click)="saveContratId(contrat.id)">
       <th scope="row">{{contrat.nomClient}}</th>
       <td>{{contrat.dateDebut}}</td>
       <td>{{contrat.dateFin}}</td>
