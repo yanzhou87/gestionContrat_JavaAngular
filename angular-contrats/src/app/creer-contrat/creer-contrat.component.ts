@@ -76,7 +76,7 @@ export class CreerContratComponent implements OnInit {
     this.durer1mois = !this.durer1mois
     if (this.durer1mois && this.contrat.dateDebut) {
       //this.contrat.dateFin = new Date(
-        // this.contrat.dateDebut.getUTCFullYear(),
+        // this.contrat.dateDebut.getFullYear(),
         // this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+1),
         // this.contrat.dateDebut.getUTCDay())
     }

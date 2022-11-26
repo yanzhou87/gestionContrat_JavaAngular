@@ -11,4 +11,6 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 
     @Query("select u from Utilisateur u left join fetch u.contrats where u.nom like :nom")
     Optional<Utilisateur> findUtilisateurByNom(@Param("nom") String nom);
+    @Query("select u from Utilisateur u left join fetch u.contrats where u.courriel like :courriel")
+    Optional<Utilisateur> findUtilisateurByCourriel(String courriel);
 }

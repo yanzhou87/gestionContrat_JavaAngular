@@ -1,0 +1,50 @@
+<div class="text-center bg-info vh-100" *ngIf="!changeMotDePasse">
+  <h1>Gestion les contrats</h1>
+  <form class="was-validated m-5 border border-warning bg-warning rounded-4">
+    <div class="custom-control mb-3">
+      <label class="custom-control-label m-2" for="username">Entrez votre courriel : </label><br>
+      <input class="custom-control-input" required type="text" id="username" name="username" [(ngModel)]="courriel"><br>
+      <div class="text-danger" *ngIf="erreurPourCourriel">Le courriel {{courriel}} n'existe pas</div>
+    </div>
+    <input class="btn btn-info text-light mb-5" type="submit" value="Confirmer" (click)="getCourriel()">
+    <a routerLink="/" class="btn btn-link mb-5">Quitter</a>
+  </form>
+</div>
+<div class="text-center bg-info vh-100"  *ngIf="changeMotDePasse">
+  <h1>Gestion les contrats</h1>
+  <form class="was-validated m-5 border border-warning bg-warning rounded-4">
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Entrez nouvel mot de passe:</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="{{hide?'password' : 'text'}}" required
+                 id="customControlValidationMotDePasse"
+                 aria-describedby="button" name="motDePasse" [(ngModel)]="motDePasse">
+          <button class="btn btn-outline-secondary border-dark text-dark" type="button" id="button" (click)="hide = !hide">
+            {{hide ? "show" : "hide" }}</button>
+        </div>
+        <div class="text-danger" *ngIf="erreurPourMotDePasse">Le mot de passe doit être supérieur à 5 </div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <h5>Vérifier mot de passe :</h5>
+        <div class="input-group mb-3 mt-2">
+          <input class="form-control" type="{{hide?'password' : 'text'}}" required
+                 name="verifierMotDePasse" [(ngModel)]="verifierMotDePasse">
+          <button class="btn btn-outline-secondary border-dark text-dark" type="button" (click)="hide = !hide">
+            {{hide ? "show" : "hide" }}</button>
+        </div>
+        <div class="text-danger" *ngIf="erreurPourVerifierMotDePasse">Doit être le même que le mot de passe</div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <input class="btn btn-info text-light mb-5" type="submit" value="Changer le mot de passe" (click)="changerMotDePasse()">
+    <a routerLink="/" class="btn btn-link mb-5">Quitter</a>
+  </form>
+</div>

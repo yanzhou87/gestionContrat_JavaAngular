@@ -87,7 +87,7 @@ export class UserService {
   }
 
   public postUnContrat(contrat: Contrat): Observable<any> {
-    return this.http.post<object>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/create"`, {
+    return this.http.post<object>(`${this.apiServiceUrl}/utilisateurs/${this.nomUtilisateurCourant}/create`, {
       nom: contrat.nom,
       dateDebut: contrat.dateDebut,
       dateFin: contrat.dateFin,
@@ -95,6 +95,15 @@ export class UserService {
       montant: contrat.montant,
       modeDuPaiement: contrat.modeDuPaiement
     });
+  }
+
+  public getCourriel (courriel: string):Observable<string>{
+    return this.http.get<string>(`${this.apiServiceUrl}/oublierLeMotDePasse/getCourriel/${courriel}`);
+  }
+
+  public putMotDePasse(motDePasse: string, courriel: string):Observable<string>{
+    return this.http.put<string>(`${this.apiServiceUrl}/oublierLeMotDePasse/changeMotDePasse/${courriel}`,
+      {motDePasse: motDePasse});
   }
 }
 

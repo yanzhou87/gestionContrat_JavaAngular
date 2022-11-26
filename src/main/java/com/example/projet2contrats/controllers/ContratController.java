@@ -63,11 +63,18 @@ public class ContratController {
         return new ResponseEntity<>(serviceContrat.getContratsExpirants(nom), HttpStatus.OK);
     }
 
+    @GetMapping("oublierLeMotDePasse/getCourriel/{courriel}")
+    public ResponseEntity<String> getCourriel(@PathVariable String courriel) {
+        if (serviceUtilisateur.getCourrielExiste(courriel)){
+            return new ResponseEntity<>("Courriel existe", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Courriel n'existe pas", HttpStatus.NOT_FOUND);
+
+    }
+
     @PostMapping("/utilisateurs")
     public ResponseEntity<UtilisateurDTO> ajouterUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO) {
-        System.out.println("post : " + utilisateurDTO);
         if(!serviceUtilisateur.verifierUnique(utilisateurDTO.getNom(),utilisateurDTO.getCourriel())){
-            System.out.println("valide courriel : " + HttpStatus.NOT_FOUND);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(serviceUtilisateur.saveUtilisateur(utilisateurDTO), HttpStatus.CREATED);
@@ -77,4 +84,14 @@ public class ContratController {
     public ResponseEntity<ContratDTO> ajouterContrat(@RequestBody ContratDTO contratDTO){
         return new ResponseEntity<>(serviceContrat.saveContratDTO(contratDTO),HttpStatus.CREATED);
     }
+
+    @PutMapping("/oublierLeMotDePasse/changeMotDePasse/{courriel}")
+    public ResponseEntity<String> putChangeMotDePasse(@PathVariable String courriel, @RequestBody String motDePasse) {
+        if (serviceUtilisateur.changeMotDePasse(courriel, motDePasse)){
+            return new ResponseEntity<>("Changer", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("pas change", HttpStatus.NOT_FOUND);
+
+    }
+
 }

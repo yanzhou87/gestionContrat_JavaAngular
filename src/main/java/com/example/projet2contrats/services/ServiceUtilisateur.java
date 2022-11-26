@@ -80,4 +80,21 @@ public class ServiceUtilisateur {
     public List<Utilisateur> findAll() {
         return utilisateurRepository.findAll();
     }
+
+    public boolean getCourrielExiste(String courriel) {
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findUtilisateurByCourriel(courriel);
+        if (utilisateur.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean changeMotDePasse(String courriel, String motDePasse) {
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findUtilisateurByCourriel(courriel);
+        if (utilisateur.isEmpty()){
+            return false;
+        }
+        utilisateur.get().setMotDePasse(motDePasse);
+        return true;
+    }
 }

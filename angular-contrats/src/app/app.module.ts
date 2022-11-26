@@ -18,6 +18,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import { ContratComponent } from './contrat/contrat.component';
 import { CreerContratComponent } from './creer-contrat/creer-contrat.component';
+import { OublierMotDePasseComponent } from './oublier-mot-de-passe/oublier-mot-de-passe.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CreerContratComponent } from './creer-contrat/creer-contrat.component';
     ContratsComponent,
     ContratsExpirantsComponent,
     ContratComponent,
-    CreerContratComponent
+    CreerContratComponent,
+    OublierMotDePasseComponent
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.nomCourant = this.userService.getNomCourrant();
+    window.location.href = "/menu"
   }
 
   deconnecter(){

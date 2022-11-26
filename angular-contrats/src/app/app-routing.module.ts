@@ -7,6 +7,7 @@ import {MenuComponent} from "./menu/menu.component";
 import {ContratsExpirantsComponent} from "./contrats-expirants/contrats-expirants.component";
 import {ContratComponent} from "./contrat/contrat.component";
 import {CreerContratComponent} from "./creer-contrat/creer-contrat.component";
+import {OublierMotDePasseComponent} from "./oublier-mot-de-passe/oublier-mot-de-passe.component";
 
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch:'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent},
   { path: 'contratsexpirants', component: ContratsExpirantsComponent},
   { path: 'contrat', component: ContratComponent},
-  { path: 'creercontrat', component: CreerContratComponent}
+  { path: 'creercontrat', component: CreerContratComponent},
+  { path: 'oubliermotdepasse', component: OublierMotDePasseComponent}
 ];
 
 @NgModule({
