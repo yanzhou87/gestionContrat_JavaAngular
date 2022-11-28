@@ -13,7 +13,7 @@ export class OublierMotDePasseComponent implements OnInit {
   verifierMotDePasse: string = "";
   erreurPourMotDePasse: boolean = false;
   erreurPourVerifierMotDePasse: boolean = false;
-  changeMotDePasse : boolean = true
+  changeMotDePasse : boolean = false
   erreurPourCourriel: boolean = false
   hide = true;
   constructor(private userService: UserService) { }
@@ -22,12 +22,11 @@ export class OublierMotDePasseComponent implements OnInit {
   }
 
   getCourriel(){
-    console.log("confirmer")
     this.userService.getCourriel(this.courriel).subscribe(
       {
         next: value => {
           this.changeMotDePasse = true
-          console.log(value)
+          console.log("value : "+value.toString().length)
         },
         error: err => {
           if(err.status == 404){

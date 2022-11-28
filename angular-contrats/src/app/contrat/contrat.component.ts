@@ -13,8 +13,8 @@ export class ContratComponent implements OnInit {
   contrat : Contrat = {
     id: 0,
     nom: "",
-    dateDebut: "",
-    dateFin:"",
+    dateDebut: new Date(),
+    dateFin:new Date(),
     nomClient: "",
     montant: 0,
     modeDuPaiement: ""

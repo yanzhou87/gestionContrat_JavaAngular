@@ -14,8 +14,8 @@ export class CreerContratComponent implements OnInit {
   contrat: Contrat = {
     id: 0,
     nom: "",
-    dateDebut:"",
-    dateFin:"",
+    dateDebut:new Date(),
+    dateFin:new Date(),
     nomClient: "",
     montant: 0,
     modeDuPaiement: ""
@@ -75,20 +75,20 @@ export class CreerContratComponent implements OnInit {
   changerUnMois(){
     this.durer1mois = !this.durer1mois
     if (this.durer1mois && this.contrat.dateDebut) {
-      //this.contrat.dateFin = new Date(
-        // this.contrat.dateDebut.getFullYear(),
-        // this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+1),
-        // this.contrat.dateDebut.getUTCDay())
+      this.contrat.dateFin = new Date(
+        this.contrat.dateDebut.getFullYear(),
+        this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+1),
+        this.contrat.dateDebut.getUTCDay())
     }
   }
 
   changerTroisMois(){
     this.durer3mois = !this.durer3mois
     if (this.durer3mois && this.contrat.dateDebut) {
-      // this.contrat.dateFin = new Date(
-      //   this.contrat.dateDebut.getUTCFullYear(),
-      //   this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+3),
-      //   this.contrat.dateDebut.getUTCDay())
+      this.contrat.dateFin = new Date(
+        this.contrat.dateDebut.getUTCFullYear(),
+        this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+3),
+        this.contrat.dateDebut.getUTCDay())
     }
   }
 
@@ -98,11 +98,11 @@ export class CreerContratComponent implements OnInit {
     const mois = this.contrat.dateDebut.toString().split("-")[1]
     const jour = this.contrat.dateDebut.toString().split("-")[2]
     if (this.durer6mois && this.contrat.dateDebut) {
-      // this.contrat.dateFin = new Date(
-      //   this.contrat.dateDebut.getUTCFullYear(),
-      //   this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+6),
-      //   this.contrat.dateDebut.getUTCDay())
-      this.contrat.dateFin += +  jour.toString() + "-" +(Number(mois) + 6).toString() +"-" + annee.toString()
+      this.contrat.dateFin = new Date(
+        this.contrat.dateDebut.getUTCFullYear(),
+        this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+6),
+        this.contrat.dateDebut.getUTCDay())
+      //this.contrat.dateFin += +  jour.toString() + "-" +(Number(mois) + 6).toString() +"-" + annee.toString()
 
       console.log(this.contrat.dateFin)
     }
@@ -111,10 +111,10 @@ export class CreerContratComponent implements OnInit {
   changerUneAnnee(){
     this.durer1anee = !this.durer1anee
     if (this.durer1anee && this.contrat.dateDebut) {
-      // this.contrat.dateFin = new Date(
-      //   this.contrat.dateDebut.setUTCFullYear(this.contrat.dateDebut.getUTCFullYear() + 1),
-      //   this.contrat.dateDebut.getUTCMonth(),
-      //   this.contrat.dateDebut.getUTCDay())
+      this.contrat.dateFin = new Date(
+        this.contrat.dateDebut.setUTCFullYear(this.contrat.dateDebut.getUTCFullYear() + 1),
+        this.contrat.dateDebut.getUTCMonth(),
+        this.contrat.dateDebut.getUTCDay())
     }
     console.log(this.contrat.dateFin)
   }
