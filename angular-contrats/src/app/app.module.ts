@@ -19,6 +19,7 @@ import {MatButtonModule} from "@angular/material/button";
 import { ContratComponent } from './contrat/contrat.component';
 import { CreerContratComponent } from './creer-contrat/creer-contrat.component';
 import { OublierMotDePasseComponent } from './oublier-mot-de-passe/oublier-mot-de-passe.component';
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -41,9 +42,10 @@ import { OublierMotDePasseComponent } from './oublier-mot-de-passe/oublier-mot-d
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    DatePipe
   ],
-  providers: [UserService],
+  providers: [UserService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

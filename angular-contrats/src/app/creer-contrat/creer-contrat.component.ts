@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Contrat} from "../models/contrat";
 import {observableToBeFn} from "rxjs/internal/testing/TestScheduler";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-creer-contrat',
@@ -14,22 +15,22 @@ export class CreerContratComponent implements OnInit {
   contrat: Contrat = {
     id: 0,
     nom: "",
-    dateDebut:new Date(),
-    dateFin:new Date(),
+    dateDebut: new Date(),
+    dateFin: "",
     nomClient: "",
     montant: 0,
     modeDuPaiement: ""
   }
 
-  durer1mois : boolean = false
-  durer3mois : boolean = false
-  durer6mois : boolean = false
-  durer1anee : boolean = false
+  durer1mois: boolean = false
+  durer3mois: boolean = false
+  durer6mois: boolean = false
+  durer1anee: boolean = false
 
-  modeDuPaiement1mois : boolean = false
-  modeDuPaiement3mois : boolean = false
-  modeDuPaiement6mois : boolean = false
-  modeDuPaiement1anee : boolean = false
+  modeDuPaiement1mois: boolean = false
+  modeDuPaiement3mois: boolean = false
+  modeDuPaiement6mois: boolean = false
+  modeDuPaiement1anee: boolean = false
 
   erreurPourNomClient: boolean = false
   erreurPourDateDebut: boolean = false
@@ -38,15 +39,16 @@ export class CreerContratComponent implements OnInit {
   erreurPourModeDuPaiement: boolean = false
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
+    console.log(new Date())
     this.nomCourant = this.userService.getNomCourrant();
   }
 
   validePourLesChamps() {
-      console.log("date début : "+this.contrat.dateDebut)
+    console.log("date début : " + this.contrat.dateDebut)
 
   }
 
@@ -72,54 +74,48 @@ export class CreerContratComponent implements OnInit {
     window.location.href = "/"
   }
 
-  changerUnMois(){
+  changerUnMois() {
     this.durer1mois = !this.durer1mois
     if (this.durer1mois && this.contrat.dateDebut) {
-      this.contrat.dateFin = new Date(
-        this.contrat.dateDebut.getFullYear(),
-        this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+1),
-        this.contrat.dateDebut.getUTCDay())
+      // this.contrat.dateFin = new Date(
+      //   this.contrat.dateDebut.getFullYear(),
+      //   this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+1),
+      //   this.contrat.dateDebut.getUTCDay())
     }
   }
 
-  changerTroisMois(){
+  changerTroisMois() {
     this.durer3mois = !this.durer3mois
     if (this.durer3mois && this.contrat.dateDebut) {
-      this.contrat.dateFin = new Date(
-        this.contrat.dateDebut.getUTCFullYear(),
-        this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+3),
-        this.contrat.dateDebut.getUTCDay())
+      // this.contrat.dateFin = new Date(
+      //   this.contrat.dateDebut.getUTCFullYear(),
+      //   this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+3),
+      //   this.contrat.dateDebut.getUTCDay())
     }
   }
 
-  changersixMois(){
+  changersixMois() {
     this.durer6mois = !this.durer6mois
-    const annee = this.contrat.dateDebut.toString().split("-")[0]
-    const mois = this.contrat.dateDebut.toString().split("-")[1]
-    const jour = this.contrat.dateDebut.toString().split("-")[2]
-    if (this.durer6mois && this.contrat.dateDebut) {
-      this.contrat.dateFin = new Date(
-        this.contrat.dateDebut.getUTCFullYear(),
-        this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+6),
-        this.contrat.dateDebut.getUTCDay())
-      //this.contrat.dateFin += +  jour.toString() + "-" +(Number(mois) + 6).toString() +"-" + annee.toString()
-
-      console.log(this.contrat.dateFin)
+    const tmpDate = new Date(this.contrat.dateDebut)
+    if (this.durer6mois && tmpDate) {
+      tmpDate.setMonth(tmpDate.getMonth() + 6)
+      // @ts-ignore
+      this.contrat.dateFin = this.datePipe.transform(tmpDate, "yyyy-MM-dd")
     }
   }
 
-  changerUneAnnee(){
+  changerUneAnnee() {
     this.durer1anee = !this.durer1anee
     if (this.durer1anee && this.contrat.dateDebut) {
-      this.contrat.dateFin = new Date(
-        this.contrat.dateDebut.setUTCFullYear(this.contrat.dateDebut.getUTCFullYear() + 1),
-        this.contrat.dateDebut.getUTCMonth(),
-        this.contrat.dateDebut.getUTCDay())
+      // this.contrat.dateFin = new Date(
+      //   this.contrat.dateDebut.setUTCFullYear(this.contrat.dateDebut.getUTCFullYear() + 1),
+      //   this.contrat.dateDebut.getUTCMonth(),
+      //   this.contrat.dateDebut.getUTCDay())
     }
     console.log(this.contrat.dateFin)
   }
 
-  annulerChangerMois(){
+  annulerChangerMois() {
     this.durer1mois = false
     this.durer3mois = false
     this.durer6mois = false
