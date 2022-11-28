@@ -66,7 +66,8 @@
       <div class="col-3"></div>
       <div class="col-6">
         <h5>Date fin :</h5>
-        <div class="input-group mb-3 mt-2">
+        <div class="mb-3 mt-2" *ngIf="hideBoutonDateFin">{{contrat.dateFin}}</div>
+        <div class="input-group mb-3 mt-2" *ngIf="!hideBoutonDateFin">
           <input type="date" class="form-control" value="{{contrat.dateFin}}" required name="dateFin" [(ngModel)]="contrat.dateFin">
         </div>
         <div class="text-danger" *ngIf="erreurPourDateFin">Date fin invalide</div>
@@ -87,24 +88,11 @@
       <div class="col-3"></div>
     </div>
 
-    <div class="row">
-      <div class="col-3"></div>
-      <div class="col-6">
-        <h5>Vérifier mot de passe :</h5>
-        <div class="input-group mb-3 mt-2">
-          <input class="form-control" type="text" required
-                 name="modeDuPaiement" [(ngModel)]="contrat.modeDuPaiement">
-        </div>
-        <div class="text-danger" *ngIf="erreurPourModeDuPaiement">Mode du paiement invalide</div>
-      </div>
-      <div class="col-3"></div>
-    </div>
-
     <div>
       <div class="row">
         <div class="col-3"></div>
         <div class="col-6">
-          <h5>Duré le temps :</h5>
+          <h5>Mode Du Paiement :</h5>
           <div class="row mb-3 mt-2 mx-1">
             <input class="form-check-input" type="radio" name="radioDefault"
                    (change)="modeDuPaiement1mois = !modeDuPaiement1mois">

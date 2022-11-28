@@ -26,6 +26,7 @@ export class CreerContratComponent implements OnInit {
   durer3mois: boolean = false
   durer6mois: boolean = false
   durer1anee: boolean = false
+  hideBoutonDateFin : boolean = false
 
   modeDuPaiement1mois: boolean = false
   modeDuPaiement3mois: boolean = false
@@ -36,8 +37,6 @@ export class CreerContratComponent implements OnInit {
   erreurPourDateDebut: boolean = false
   erreurPourDateFin: boolean = false
   erreurPourMontant: boolean = false
-  erreurPourModeDuPaiement: boolean = false
-
 
   constructor(private userService: UserService, private datePipe: DatePipe) {
   }
@@ -48,12 +47,36 @@ export class CreerContratComponent implements OnInit {
   }
 
   validePourLesChamps() {
-    console.log("date début : " + this.contrat.dateDebut)
-
+    if(this.modeDuPaiement1mois){
+      this.modeDuPaiement3mois = false
+      this.modeDuPaiement6mois = false
+      this.modeDuPaiement1anee = false
+      this.contrat.modeDuPaiement = "1 mois"
+    }
+    if(this.modeDuPaiement3mois){
+      this.modeDuPaiement1mois = false
+      this.modeDuPaiement6mois = false
+      this.modeDuPaiement1anee = false
+      this.contrat.modeDuPaiement = "3 mois"
+    }
+    if(this.modeDuPaiement6mois){
+      this.modeDuPaiement1mois = false
+      this.modeDuPaiement3mois = false
+      this.modeDuPaiement1anee = false
+      this.contrat.modeDuPaiement = "6 mois"
+    }
+    if(this.modeDuPaiement1anee){
+      this.modeDuPaiement1mois = false
+      this.modeDuPaiement3mois = false
+      this.modeDuPaiement6mois = false
+      this.contrat.modeDuPaiement = "1 année"
+    }
   }
 
   postContrat() {
     this.validePourLesChamps();
+    this.contrat.nom = this.nomCourant
+    alert(this.modeDuPaiement6mois)
     this.userService.postUnContrat(this.contrat)
       .subscribe({
           next: value => {
@@ -76,26 +99,41 @@ export class CreerContratComponent implements OnInit {
 
   changerUnMois() {
     this.durer1mois = !this.durer1mois
+    this.durer3mois = false
+    this.durer6mois = false
+    this.durer1anee = false
+    this.hideBoutonDateFin = true
+    this.contrat.dateFin = ""
+    const tmpDate = new Date(this.contrat.dateDebut)
     if (this.durer1mois && this.contrat.dateDebut) {
-      // this.contrat.dateFin = new Date(
-      //   this.contrat.dateDebut.getFullYear(),
-      //   this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+1),
-      //   this.contrat.dateDebut.getUTCDay())
+      tmpDate.setMonth(tmpDate.getMonth() + 1)
+      // @ts-ignore
+      this.contrat.dateFin = this.datePipe.transform(tmpDate, "yyyy-MM-dd")
     }
   }
 
   changerTroisMois() {
     this.durer3mois = !this.durer3mois
+    this.durer1mois = false
+    this.durer6mois = false
+    this.durer1anee = false
+    this.hideBoutonDateFin = true
+    this.contrat.dateFin = ""
+    const tmpDate = new Date(this.contrat.dateDebut)
     if (this.durer3mois && this.contrat.dateDebut) {
-      // this.contrat.dateFin = new Date(
-      //   this.contrat.dateDebut.getUTCFullYear(),
-      //   this.contrat.dateDebut.setUTCMonth(this.contrat.dateDebut.getUTCMonth()+3),
-      //   this.contrat.dateDebut.getUTCDay())
+      tmpDate.setMonth(tmpDate.getMonth() + 3)
+      // @ts-ignore
+      this.contrat.dateFin = this.datePipe.transform(tmpDate, "yyyy-MM-dd")
     }
   }
 
   changersixMois() {
     this.durer6mois = !this.durer6mois
+    this.durer1mois = false
+    this.durer3mois = false
+    this.durer1anee = false
+    this.hideBoutonDateFin = true
+    this.contrat.dateFin = ""
     const tmpDate = new Date(this.contrat.dateDebut)
     if (this.durer6mois && tmpDate) {
       tmpDate.setMonth(tmpDate.getMonth() + 6)
@@ -106,11 +144,16 @@ export class CreerContratComponent implements OnInit {
 
   changerUneAnnee() {
     this.durer1anee = !this.durer1anee
+    this.durer1mois = false
+    this.durer3mois = false
+    this.durer6mois = false
+    this.hideBoutonDateFin = true
+    this.contrat.dateFin = ""
+    const tmpDate = new Date(this.contrat.dateDebut)
     if (this.durer1anee && this.contrat.dateDebut) {
-      // this.contrat.dateFin = new Date(
-      //   this.contrat.dateDebut.setUTCFullYear(this.contrat.dateDebut.getUTCFullYear() + 1),
-      //   this.contrat.dateDebut.getUTCMonth(),
-      //   this.contrat.dateDebut.getUTCDay())
+      tmpDate.setFullYear(tmpDate.getFullYear() + 1)
+      // @ts-ignore
+      this.contrat.dateFin = this.datePipe.transform(tmpDate, "yyyy-MM-dd")
     }
     console.log(this.contrat.dateFin)
   }
@@ -120,5 +163,7 @@ export class CreerContratComponent implements OnInit {
     this.durer3mois = false
     this.durer6mois = false
     this.durer1anee = false
+    this.hideBoutonDateFin = false
+    this.contrat.dateFin = ""
   }
 }
