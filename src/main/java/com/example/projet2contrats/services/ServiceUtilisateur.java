@@ -95,6 +95,7 @@ public class ServiceUtilisateur {
             return false;
         }
         utilisateur.get().setMotDePasse(motDePasse);
+        utilisateurRepository.save(utilisateur.get());
         return true;
     }
 }

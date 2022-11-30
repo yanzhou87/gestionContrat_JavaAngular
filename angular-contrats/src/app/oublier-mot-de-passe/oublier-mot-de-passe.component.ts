@@ -15,7 +15,9 @@ export class OublierMotDePasseComponent implements OnInit {
   erreurPourVerifierMotDePasse: boolean = false;
   changeMotDePasse : boolean = false
   erreurPourCourriel: boolean = false
+  messageChanger : string = ""
   hide = true;
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -26,7 +28,11 @@ export class OublierMotDePasseComponent implements OnInit {
       {
         next: value => {
           this.changeMotDePasse = true
-          console.log("value : "+value.toString().length)
+          this.erreurPourCourriel = false
+        },
+        complete: () => {
+          this.changeMotDePasse = true
+          this.erreurPourCourriel = false
         },
         error: err => {
           if(err.status == 404){
@@ -44,6 +50,14 @@ export class OublierMotDePasseComponent implements OnInit {
     if (this.motDePasse != this.verifierMotDePasse) {
       this.erreurPourVerifierMotDePasse = true;
     }
-    this.userService.putMotDePasse(this.motDePasse, this.courriel)
+    this.userService.putMotDePasse(this.motDePasse, this.courriel).subscribe(
+      {
+        next : value => {
+          this.messageChanger = "C'est changé !!!"
+          this.erreurPourMotDePasse = false
+          this.erreurPourVerifierMotDePasse = false
+        }
+      }
+    )
   }
 }

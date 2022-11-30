@@ -10,7 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/")
@@ -20,6 +24,12 @@ public class ContratController {
     Logger logger = LoggerFactory.getLogger(ContratController.class);
     private ServiceContrat serviceContrat;
     private ServiceUtilisateur serviceUtilisateur;
+
+    private Map<String, String> getError(String error) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("error", error);
+        return hashMap;
+    }
 
     public ContratController(ServiceContrat serviceContrat, ServiceUtilisateur serviceUtilisateur) {
         this.serviceContrat = serviceContrat;
@@ -53,7 +63,6 @@ public class ContratController {
 
     @GetMapping("/utilisateurs/contrats/{id}")
     public ResponseEntity<ContratDTO> getContratsParId( @PathVariable long id) {
-        System.out.println("id : " + id);
         return new ResponseEntity<>(serviceContrat.getContratParId( id), HttpStatus.OK);
     }
 
@@ -64,18 +73,21 @@ public class ContratController {
     }
 
     @GetMapping("oublierLeMotDePasse/getCourriel/{courriel}")
-    public ResponseEntity<String> getCourriel(@PathVariable String courriel) {
-        if (serviceUtilisateur.getCourrielExiste(courriel)){
-            return new ResponseEntity<>("Courriel existe", HttpStatus.OK);
+    public ResponseEntity<Map<String, String>> getCourriel(@PathVariable String courriel) {
+        if (!serviceUtilisateur.getCourrielExiste(courriel)){
+            System.out.println(serviceUtilisateur.getCourrielExiste(courriel));
+            return ResponseEntity.status(NOT_FOUND)
+                    .body(getError("Courriel n'existe pas."));
         }
-        return new ResponseEntity<>("Courriel n'existe pas", HttpStatus.NOT_FOUND);
+        System.out.println(serviceUtilisateur.getCourrielExiste(courriel));
+        return ResponseEntity.status(OK).body(getError("Courriel existe."));
 
     }
 
     @PostMapping("/utilisateurs")
     public ResponseEntity<UtilisateurDTO> ajouterUtilisateur(@RequestBody UtilisateurDTO utilisateurDTO) {
         if(!serviceUtilisateur.verifierUnique(utilisateurDTO.getNom(),utilisateurDTO.getCourriel())){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(NOT_FOUND);
         }
         return new ResponseEntity<>(serviceUtilisateur.saveUtilisateur(utilisateurDTO), HttpStatus.CREATED);
     }
@@ -86,12 +98,13 @@ public class ContratController {
     }
 
     @PutMapping("/oublierLeMotDePasse/changeMotDePasse/{courriel}")
-    public ResponseEntity<String> putChangeMotDePasse(@PathVariable String courriel, @RequestBody String motDePasse) {
-        if (serviceUtilisateur.changeMotDePasse(courriel, motDePasse)){
-            return new ResponseEntity<>("Changer", HttpStatus.OK);
+    public ResponseEntity<Map<String, String>> putChangeMotDePasse(@PathVariable String courriel, @RequestBody Map<String,String> motDePasse) {
+        if (serviceUtilisateur.changeMotDePasse(courriel, motDePasse.get("motDePasse"))){
+            return ResponseEntity.status(OK)
+                    .body(getError("Changer."));
         }
-        return new ResponseEntity<>("pas change", HttpStatus.NOT_FOUND);
-
+        return ResponseEntity.status(NOT_FOUND)
+                .body(getError("Pas change."));
     }
 
 }

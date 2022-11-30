@@ -22,15 +22,12 @@ export class LoginComponent implements OnInit {
   }
 
   getUtilisateur(): void {
-    let utilisateurCourrant: Observable<Utilisateur> = this.userService.getUtilisateurParNom(this.nom, this.motDePasse);
-
-    utilisateurCourrant.subscribe({
+    this.userService.getUtilisateurParNom(this.nom, this.motDePasse)
+    .subscribe({
       next: user => {
         if (user.motDePasse != this.motDePasse) {
-          console.log("mot de passe")
           this.erreurPourMotDePasse = true
           this.erreurPourNom = false
-          console.log(this.erreurPourMotDePasse)
         } else {
           this.nom = ""
           this.motDePasse = ""
