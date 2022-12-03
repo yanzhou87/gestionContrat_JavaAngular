@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Utilisateur} from "../models/utilisateur";
 import {UserService} from "../services/user.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',

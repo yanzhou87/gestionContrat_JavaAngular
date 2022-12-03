@@ -37,11 +37,15 @@ export class ContratsExpirantsComponent implements OnInit {
   }
 
   getContratsParNomDuClient(){
-    this.userService.getContratsExpirantsParNomDuClient(this.nomChercher).subscribe(
-      resultat =>{
-        this.contrats = resultat
-      }
-    )
+    if(this.nomChercher != ""){
+      this.userService.getContratsExpirantsParNomDuClient(this.nomChercher).subscribe(
+        resultat =>{
+          this.contrats = resultat
+        }
+      )
+    }else{
+      this.getContratsExpirants()
+    }
   }
 
   saveContratId(id: number) {

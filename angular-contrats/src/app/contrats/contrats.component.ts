@@ -30,9 +30,6 @@ export class ContratsComponent implements OnInit {
     this.userService.getContrats().subscribe({
         next: value => {
           this.contrats = value
-        },
-        error: erreur => {
-
         }
       }
     )

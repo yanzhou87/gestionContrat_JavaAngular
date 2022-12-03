@@ -31,6 +31,7 @@ public class Projet2ContratsApplication implements CommandLineRunner {
         LocalDate fin1 = LocalDate.now().plusDays(15);
         LocalDate fin2 = LocalDate.now().plusDays(45);
         LocalDate fin3 = LocalDate.now().plusDays(10);
+        LocalDate fin4 = LocalDate.now().plusDays(1);
 
         List<ContratDTO> contratDTOS = serviceContrat.getContratsParNomUtilisateur("Yan Zhou");
 
@@ -48,6 +49,8 @@ public class Projet2ContratsApplication implements CommandLineRunner {
         Contrat contrat5 = serviceContrat.saveContrat(new Contrat(utilisateur.getNom(), debut, fin1,500, "client 3"));
         utilisateur.addContrats(contrat4);
         utilisateur.addContrats(contrat5);
+        Contrat contrat6 = serviceContrat.saveContrat(new Contrat(utilisateur.getNom(), debut, fin4,600,"client 4"));
+        utilisateur.addContrats(contrat6);
         System.out.println(serviceContrat.getAllContrats());
 
         Utilisateur utilisateur23 = new Utilisateur("yan","123456","yanxx@gmail.com");

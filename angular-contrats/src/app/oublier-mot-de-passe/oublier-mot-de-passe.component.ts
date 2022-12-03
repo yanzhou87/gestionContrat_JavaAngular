@@ -50,14 +50,16 @@ export class OublierMotDePasseComponent implements OnInit {
     if (this.motDePasse != this.verifierMotDePasse) {
       this.erreurPourVerifierMotDePasse = true;
     }
-    this.userService.putMotDePasse(this.motDePasse, this.courriel).subscribe(
-      {
-        next : value => {
-          this.messageChanger = "C'est changé !!!"
-          this.erreurPourMotDePasse = false
-          this.erreurPourVerifierMotDePasse = false
+    if (this.motDePasse == this.verifierMotDePasse){
+      this.userService.putMotDePasse(this.motDePasse, this.courriel).subscribe(
+        {
+          next : value => {
+            this.messageChanger = "C'est changé !!!"
+            this.erreurPourMotDePasse = false
+            this.erreurPourVerifierMotDePasse = false
+          }
         }
-      }
-    )
+      )
+    }
   }
 }

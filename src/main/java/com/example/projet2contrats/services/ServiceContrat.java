@@ -71,10 +71,11 @@ public class ServiceContrat {
     }
 
     public List<ContratDTO> getContratsExpirants(String nomUtilisateur) {
+        List<ContratDTO> contratDTOS = new ArrayList<>();
 
         List<Contrat> contrats = contratRepository.findAll();
         List<Contrat> contratsExpirants = contrats.stream().filter((contrat)-> Period.between(LocalDate.now(), contrat.getDateFin()).getDays() <= 3).toList();
-        List<ContratDTO> contratDTOS = new ArrayList<>();
+
         for(Contrat contrat : contratsExpirants){
             if(contrat.getNom().equals(nomUtilisateur)){
                 ContratDTO contratDTO = new ContratDTO(contrat.getId(),contrat.getNom(),

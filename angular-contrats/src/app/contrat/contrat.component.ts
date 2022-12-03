@@ -30,17 +30,6 @@ export class ContratComponent implements OnInit {
         }
       }
     )
-    // this.userService.getContratParId().subscribe(
-    //   {
-    //     next: value => {
-    //       console.log(value)
-    //       this.contrat = value
-    //     },
-    //     error: erreur =>{
-    //
-    //     }
-    //   }
-    // )
   }
 
   deconnecter(){

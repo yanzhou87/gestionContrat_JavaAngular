@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Contrat} from "../models/contrat";
-import {observableToBeFn} from "rxjs/internal/testing/TestScheduler";
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -42,7 +41,6 @@ export class CreerContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(new Date())
     this.nomCourant = this.userService.getNomCourrant();
   }
 
@@ -76,13 +74,10 @@ export class CreerContratComponent implements OnInit {
   postContrat() {
     this.validePourLesChamps();
     this.contrat.nom = this.nomCourant
-    alert(this.modeDuPaiement6mois)
     this.userService.postUnContrat(this.contrat)
       .subscribe({
           next: value => {
             window.location.href = "/menu"
-          },
-          error: repondre => {
           }
         }
       )
@@ -155,7 +150,6 @@ export class CreerContratComponent implements OnInit {
       // @ts-ignore
       this.contrat.dateFin = this.datePipe.transform(tmpDate, "yyyy-MM-dd")
     }
-    console.log(this.contrat.dateFin)
   }
 
   annulerChangerMois() {
