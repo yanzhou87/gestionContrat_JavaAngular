@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class ContratController {
 
     Logger logger = LoggerFactory.getLogger(ContratController.class);
@@ -53,6 +53,7 @@ public class ContratController {
     }
     @GetMapping("/utilisateurs/{nom}")
     public ResponseEntity<UtilisateurDTO> getUtilisateurParNom(@PathVariable String nom) {
+        System.out.println("nom : " + nom);
         try{
             UtilisateurDTO utilisateurDTO = serviceUtilisateur.getUtilisateurParNom(nom);
             return ResponseEntity.ok(utilisateurDTO);

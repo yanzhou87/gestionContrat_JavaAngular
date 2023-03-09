@@ -25,9 +25,11 @@ export class UserService {
   }
 
   public getUtilisateurParNom(nom: string | undefined, motDePasse: string): Observable<Utilisateur> {
+    console.log(nom, motDePasse)
     const utilisateur: Observable<Utilisateur> = this.http.get<Utilisateur>(`${this.apiServiceUrl}/utilisateurs/${nom}`)
     utilisateur.subscribe({
         next: user => {
+          console.log("password : " + user.motDePasse)
           if (user.nom) {
             this.nomUtilisateurCourant = user.nom
             localStorage.setItem("nom_utilisateur", user.nom);
@@ -35,7 +37,12 @@ export class UserService {
               this.isLogin = true
             }
           }
-        }
+        },
+      error: err => {
+          if(err.status == 401){
+            console.log("error : " + err)
+          }
+      }
       }
     )
     return utilisateur

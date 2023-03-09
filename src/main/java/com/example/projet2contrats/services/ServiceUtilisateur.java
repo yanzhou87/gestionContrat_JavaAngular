@@ -5,10 +5,12 @@ import com.example.projet2contrats.models.Contrat;
 import com.example.projet2contrats.models.Utilisateur;
 import com.example.projet2contrats.repositorys.UtilisateurRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.reactive.TransactionalOperatorExtensionsKt;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ServiceUtilisateur {
@@ -25,20 +27,20 @@ public class ServiceUtilisateur {
             throw new Exception();
         }
         UtilisateurDTO utilisateurDTO = new UtilisateurDTO(utilisateur.get().getId(),utilisateur.get().getNom(),
-                utilisateur.get().getMotDePasse(),utilisateur.get().getCourriel());
+                utilisateur.get().getMotDePasse(),utilisateur.get().getCourriel(), utilisateur.get().getToken());
         return utilisateurDTO;
     }
 
     public UtilisateurDTO saveUtilisateur(UtilisateurDTO utilisateurDTO) {
         List<Contrat> contrats = new ArrayList<>();
-
+        UUID token = UUID.randomUUID();
         Utilisateur utilisateur = new Utilisateur(utilisateurDTO.getNom()
-                    ,utilisateurDTO.getMotDePasse(), utilisateurDTO.getCourriel(), contrats);
+                    ,utilisateurDTO.getMotDePasse(), utilisateurDTO.getCourriel(), contrats, token);
 
         Utilisateur utilisateur1 = utilisateurRepository.save(utilisateur);
 
         UtilisateurDTO utilisateurDTO1 = new UtilisateurDTO(utilisateur1.getId(), utilisateur1.getNom(),
-                    utilisateur1.getCourriel(), utilisateur1.getMotDePasse());
+                    utilisateur1.getCourriel(), utilisateur1.getMotDePasse(), utilisateur1.getToken());
 
         return utilisateurDTO1;
     }

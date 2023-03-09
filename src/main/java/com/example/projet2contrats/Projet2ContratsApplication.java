@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class Projet2ContratsApplication implements CommandLineRunner {
@@ -36,8 +37,9 @@ public class Projet2ContratsApplication implements CommandLineRunner {
         List<ContratDTO> contratDTOS = serviceContrat.getContratsParNomUtilisateur("Yan Zhou");
 
         //  System.out.println(serviceContrat.getAllContrats());
+        UUID token = UUID.randomUUID();
+        UtilisateurDTO utilisateurDTO = new UtilisateurDTO( "Yan Yan", "123456","yan@gmail.com", token);
 
-        UtilisateurDTO utilisateurDTO = new UtilisateurDTO( "Yan Yan", "123456","yan@gmail.com");
         UtilisateurDTO utilisateurDTO1 = serviceUtilisateur.saveUtilisateur(utilisateurDTO);
         System.out.println(utilisateurDTO1);
         Utilisateur utilisateur = serviceUtilisateur.getUtilisateurParNomPourContrats("Yan Yan");
@@ -52,8 +54,8 @@ public class Projet2ContratsApplication implements CommandLineRunner {
         Contrat contrat6 = serviceContrat.saveContrat(new Contrat(utilisateur.getNom(), debut, fin4,600,"client 4"));
         utilisateur.addContrats(contrat6);
         System.out.println(serviceContrat.getAllContrats());
-
-        Utilisateur utilisateur23 = new Utilisateur("yan","123456","yanxx@gmail.com");
+        UUID token1 = UUID.randomUUID();
+        Utilisateur utilisateur23 = new Utilisateur("yan","123456","yanxx@gmail.com", token1);
         Utilisateur utilisateurr = serviceUtilisateur.saveU(utilisateur23);
         System.out.println(utilisateurr);
     }

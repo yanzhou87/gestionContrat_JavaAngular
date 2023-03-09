@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     this.userService.getUtilisateurParNom(this.nom, this.motDePasse)
     .subscribe({
       next: user => {
+        console.log(user.motDePasse)
         if (user.motDePasse != this.motDePasse) {
           this.erreurPourMotDePasse = true
           this.erreurPourNom = false
